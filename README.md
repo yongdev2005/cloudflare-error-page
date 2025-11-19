@@ -1,10 +1,20 @@
-# Customizable Cloudflare error page generator
+# Cloudflare Error Page Generator
 
-## QuickStart Guide (Python)
+## What does this project do?
+
+This project creates customized error pages that mimics Cloudflare's error page. And you can embed it into your website.
+
+![Default error page](doc/default.png)
+
+## Quickstart
+
+Install cloudflare-error-page using pip
 
 ``` Bash
 pip install git+https://github.com/donlon/cloudflare-error-page.git
 ```
+
+Then you can generate an error page based on parameters you like. (See [example.py](examples/example.py))
 
 ``` Python
 import webbrowser
@@ -34,7 +44,9 @@ with open('error.html', 'w') as f:
 webbrowser.open('error.html')
 ```
 
-## Examples
+## More Examples
+
+### Catastrophic infrastructure failure
 
 ``` Python
 params =  {
