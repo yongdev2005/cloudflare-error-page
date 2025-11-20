@@ -4,9 +4,15 @@
 
 This project creates customized error pages that mimics the well-known Cloudflare error page. You can also embed it into your website.
 
-## Quickstart
+## Online Editor
 
-Install cloudflare-error-page using pip
+Here's an editor for the error page. You can try this out [here](https://virt.moe/cloudflare-error-page/editor/).
+
+![Editor](https://github.com/donlon/cloudflare-error-page/blob/images/editor.png?raw=true)
+
+## Quickstart for Programmers
+
+Install `cloudflare-error-page` using pip
 
 ``` Bash
 pip install git+https://github.com/donlon/cloudflare-error-page.git
