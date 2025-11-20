@@ -12,7 +12,7 @@ Here's an editor for the error page. You can try this out [here](https://virt.mo
 
 ## Quickstart for Programmers
 
-Install `cloudflare-error-page` using pip
+Install `cloudflare-error-page` with pip.
 
 ``` Bash
 pip install git+https://github.com/donlon/cloudflare-error-page.git
@@ -54,9 +54,9 @@ with open('error.html', 'w') as f:
 webbrowser.open('error.html')
 ```
 
-You can also see this example [here](https://virt.moe/cloudflare-error-page/examples/default).
-
 ![Default error page](doc/default.png)
+
+You can also see this example [here](https://virt.moe/cloudflare-error-page/examples/default).
 
 ## More Examples
 
@@ -93,10 +93,9 @@ params = {
 }
 ```
 
-See this example [here](https://virt.moe/cloudflare-error-page/examples/catastrophic).
-
-
 ![Catastrophic infrastructure failure](https://github.com/donlon/cloudflare-error-page/blob/images/example.png?raw=true)
+
+[link](https://virt.moe/cloudflare-error-page/examples/catastrophic).
 
 ### Web server is working
 
@@ -126,13 +125,14 @@ params = {
 }
 ```
 
-See this example [here](https://virt.moe/cloudflare-error-page/examples/working).
-
 ![Web server is working](https://github.com/donlon/cloudflare-error-page/blob/images/example2.png?raw=true)
+
+[link](https://virt.moe/cloudflare-error-page/examples/working).
+
 
 ### Using Flask server
 
-See [flask_server.py](examples/flask_server.py)
+See [flask_server.py](examples/flask_server.py) for embedding the error pages into the server
 
 
 ## Full Parameter Reference
@@ -140,7 +140,7 @@ See [flask_server.py](examples/flask_server.py)
 {
     "html_title": "cloudflare.com | 500: Internal server error",
     "title": "Internal server error",
-    "error_code": 999,
+    "error_code": 500,
     "time": "2025-11-18 12:34:56 UTC",  // if not set, current UTC time is shown
 
     // Configuration for "Visit ... for more information" line
