@@ -39,7 +39,7 @@ def fill_cf_template_params(params: dict):
 
         cf_status: dict = params.get('cloudflare_status', {})
         if not cf_status.get('location'):
-            loc = get_cf_location()
+            loc = get_cf_location(ray_id_loc[-3:])
             if loc:
                 cf_status['location'] = loc
 
