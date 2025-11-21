@@ -6,21 +6,19 @@ import sys
 
 from flask import (
     Flask,
-    json,
     request,
-    abort,
-    redirect,
     send_from_directory
 )
 
+# Append this directory to sys.path is not required if the package is already installed
 examples_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(examples_dir))
+
 from cloudflare_error_page import get_resources_folder, render as render_cf_error_page
 
-# TODO: use blueprint
 app = Flask(__name__)
 
-# You can use resources from Cloudflare CDN. But in case of changing, you can set use_cdn = False to use bundled resources.
+# You can **use resources from Cloudflare CDN. But in case of changing, you can set use_cdn = False to use bundled resources.
 use_cdn = True
 
 if use_cdn:
@@ -29,63 +27,46 @@ if use_cdn:
     # This handler is used to provide stylesheet and icon resources for the error page. If you pass use_cdn=True to render_cf_error_page
     # or if your site is under proxy of Cloudflare (the cdn-cgi folder is already provided by Cloudflare), this handler can be removed.
     @app.route('/cdn-cgi/<path:path>')
-    def cdn_cgi(path):
+    def cdn_cgi(path: str):
         return send_from_directory(res_folder, path)
 
 
-param_cache: dict[str, dict] = {}
-
-def get_page_params(name: str) -> dict:
-    name = re.sub(r'[^\w]', '', name)
-    params = param_cache.get(name)
-    if params is not None:
-        return params
-    try:
-        with open(os.path.join(examples_dir, f'{name}.json')) as f:
-            params = json.load(f)
-        param_cache[name] = params
-        return params
-    except Exception as _:
-        return None
-
-
-@app.route('/', defaults={'name': 'default'})
-@app.route('/<path:name>')
-def index(name: str):
-    name = os.path.basename(name)  # keep only the base name
-    lower_name = name.lower()
-    if name != lower_name:
-        return redirect(lower_name)
-    else:
-        name = lower_name
-
-    params = get_page_params(name)
-    if params is None:
-        abort(404)
+@app.route('/')
+def index():
+    params = {
+        "title": "Internal server error",
+        "error_code": 500,
+        "browser_status": {
+            "status": "ok"
+        },
+        "cloudflare_status": {
+            "status": "error",
+            "status_text": "Error"
+        },
+        "host_status": {
+            "status": "ok",
+            "location": "example.com"
+        },
+        "error_source": "cloudflare",
+        "what_happened": "<p>There is an internal server error on Cloudflare\"s network.</p>",
+        "what_can_i_do": "<p>Please try again in a few minutes.</p>"
+    }
 
     # Get real Ray ID from Cloudflare header
-    ray_id = request.headers.get('Cf-Ray')
-    if ray_id:
-        ray_id = ray_id[:16]
+    ray_id = request.headers.get('Cf-Ray', '')[:16]
 
     # Get real client ip from Cloudflare header or request.remote_addr
     client_ip = request.headers.get('X-Forwarded-For')
     if not client_ip:
         client_ip = request.remote_addr
 
-    params = {
-        **params,
+    params.update({
         'ray_id': ray_id,
         'client_ip': client_ip,
-    }
+    })
 
     # Render the error page
     return render_cf_error_page(params, use_cdn=use_cdn), 500
-
-
-@app.route('/favicon.ico')
-def favicon_ico():
-    abort(404)
 
 
 if __name__ == '__main__':
