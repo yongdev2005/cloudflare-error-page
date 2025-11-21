@@ -380,7 +380,7 @@
           inp.addEventListener('input', debounce(() => {
             // Update status block color classes for quick visual feedback in the editor
             render();
-          }, 250));
+          }, 1500));
           // for radio change events (error_source)
           if (inp.type === 'radio') inp.addEventListener('change', () => { render(); });
         });
