@@ -83,6 +83,10 @@ def create_app(test_config=None) -> Flask:
     with app.app_context():
         db.create_all()
 
+    @app.route('/')
+    def index():
+        return redirect(url_for('editor.index'))
+
     @app.route('/health')
     def health():
         return '', 204
