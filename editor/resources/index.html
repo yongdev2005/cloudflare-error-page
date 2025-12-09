@@ -333,7 +333,6 @@
 
         // store last rendered HTML for "open in new tab"
         lastRenderedHtml = pageHtml;
-        updateStatusBlockStyles();
       }
 
       /* Open in new tab: create blob and open */
@@ -387,6 +386,11 @@
         document.body.removeChild(link)
         window.URL.revokeObjectURL(url)
       }
+      function resizePreviewFrame() {
+        const iframe = $('previewFrame');
+        const height = iframe.contentWindow.document.body.scrollHeight + 2
+        iframe.style.setProperty('--expanded-height', height + 'px')
+      }
 
       /* Wire up events */
       document.addEventListener('DOMContentLoaded', () => {
@@ -422,10 +426,18 @@
           inp.addEventListener('input', debounce(() => {
             // Update status block color classes for quick visual feedback in the editor
             render();
+            updateStatusBlockStyles();
           }, 200));
           // for radio change events (error_source)
           if (inp.type === 'radio') inp.addEventListener('change', () => { render(); });
         });
+
+        // Automatically update frame height
+        const observer = new ResizeObserver(entries => resizePreviewFrame());
+        const iframe = $('previewFrame');
+        observer.observe(iframe.contentWindow.document.body);
+        // resizePreviewFrame()
+        setInterval(resizePreviewFrame, 1000) // TODO...
       });
 
       /* Update status block colors based on selected status and error_source */
@@ -485,6 +497,9 @@
         display: flex;
         flex-direction: column;
       }
+      iframe.preview-frame {
+        height: 100% !important;
+      }
     }
 
     /* On small screens use stacked layout: editor then iframe */
@@ -499,8 +514,7 @@
       background: #fff;
       border: 1px solid #e3e6ea;
       border-radius: .5rem;
-      padding: 0.8rem 0;
-      min-height: 100%;
+      padding: 0.8rem 0 0 0;
     }
 
     /* Compact form: label and control same row */
@@ -542,8 +556,9 @@
 
     /* Iframe styling */
     iframe.preview-frame {
+      --expanded-height: 100%;
       width: 100%;
-      height: 100%;
+      height: var(--expanded-height);
       border: 1px solid #ddd;
       flex: 1 1 auto;
       min-height: 360px;
